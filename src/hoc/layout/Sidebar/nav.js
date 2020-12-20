@@ -2,7 +2,7 @@ export default [
     {
         _tag: 'CSidebarNavItem',
         name: 'Home',
-        to: '/home',
+        to: '/laundry/home',
         icon: 'cil-home',
     },
     {
@@ -12,13 +12,13 @@ export default [
     {
         _tag: 'CSidebarNavItem',
         name: 'Order',
-        to: '/order',
+        to: '/laundry/order',
         icon: 'cil-credit-card'
     },
     {
         _tag: 'CSidebarNavItem',
         name: 'Ambil Barang',
-        to: '/ambil',
+        to: '/laundry/ambil',
         icon: 'cil-check'
     },
     {
@@ -28,40 +28,40 @@ export default [
     {
         _tag: 'CSidebarNavItem',
         name: 'Transaksi',
-        to: '/kelolaTransaksi',
+        to: '/laundry/kelolaTransaksi',
         icon: 'cil-task'
     },
-    {
-        _tag: 'CSidebarNavItem',
-        name: 'Paket',
-        to: '/kelolaPaket',
-        icon: 'cil-tags'
-    },
-    {
-        _tag: 'CSidebarNavTitle',
-        _children: ['Keuangan'],
-    },
-    {
-        _tag: 'CSidebarNavDropdown',
-        name: 'Rekap Transaksi',
-        icon: 'cil-square',
-        _children: [
-            {
-                _tag: 'CSidebarNavItem',
-                name: 'Pemasukan',
-                to: '/pemasukan',
-            },
-            {
-                _tag: 'CSidebarNavItem',
-                name: 'Pengeluaran',
-                to: '/pengeluaran',
-            },
-        ],
-    },
-    {
-        _tag: 'CSidebarNavItem',
-        name: 'Laporan Keuangan',
-        to: '/laporan',
-        icon: 'cil-file'
-    },
+    // {
+    //     _tag: 'CSidebarNavItem',
+    //     name: 'Paket',
+    //     to: '/laundry/kelolaPaket',
+    //     icon: 'cil-tags'
+    // },
+    // {
+    //     _tag: 'CSidebarNavTitle',
+    //     _children: ['Keuangan'],
+    // },
+    // {
+    //     _tag: 'CSidebarNavDropdown',
+    //     name: 'Rekap Transaksi',
+    //     icon: 'cil-square',
+    //     _children: [
+    //         {
+    //             _tag: 'CSidebarNavItem',
+    //             name: 'Pemasukan',
+    //             to: '/laundry/pemasukan',
+    //         },
+    //         {
+    //             _tag: 'CSidebarNavItem',
+    //             name: 'Pengeluaran',
+    //             to: '/laundry/pengeluaran',
+    //         },
+    //     ],
+    // },
+    // {
+    //     _tag: 'CSidebarNavItem',
+    //     name: 'Laporan Keuangan',
+    //     to: '/laundry/laporan',
+    //     icon: 'cil-file'
+    // },
 ]

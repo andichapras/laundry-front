@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   CCreateElement,
@@ -12,14 +12,21 @@ import {
   CSidebarNavItem,
 } from '@coreui/react'
 
+import { AuthContext } from '../../../components/context/auth-context'
+
 import CIcon from '@coreui/icons-react'
 
 // Sidebar Nav Config
 import nav from './nav'
+import navSpv from './navSpv'
 
 const Sidebar = () => {
+    const auth = useContext(AuthContext)
+
     const dispatch = useDispatch()
     const show = useSelector(state => state.sidebarShow)
+
+    // const auth = useContext(authContext)
     
     return (
         <CSidebar
@@ -27,6 +34,21 @@ const Sidebar = () => {
             onShowChange={(val) => dispatch({type: 'set', sidebarShow: val })}
         >
 
+            {auth.isLoggedIn && (
+            <CSidebarNav>
+                <CCreateElement
+                    items={navSpv}
+                    components={{
+                        CSidebarNavDivider,
+                        CSidebarNavDropdown,
+                        CSidebarNavItem,
+                        CSidebarNavTitle
+                    }}
+                />
+            </CSidebarNav>
+            )}
+
+            {!auth.isLoggedIn && (
             <CSidebarNav>
                 <CCreateElement
                     items={nav}
@@ -38,6 +60,8 @@ const Sidebar = () => {
                     }}
                 />
             </CSidebarNav>
+            )}
+
             <CSidebarMinimizer className="c-d-md-down-none"/>
         </CSidebar>
     )

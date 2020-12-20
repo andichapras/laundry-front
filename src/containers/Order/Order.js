@@ -19,8 +19,6 @@ import {
     CModalTitle,
 } from '@coreui/react'
 
-import TotaHarga from '../../components/Order/TotalHarga'
-
 const Order = () => {
     const [daftarPaket, setDaftarPaket] = useState([
         {
@@ -127,6 +125,13 @@ const Order = () => {
         setTotal(newPrice)
     }
 
+    let buttonOrder
+    if(total>1) {
+        buttonOrder = <CButton block variant="outline" color="success" onClick={() => setModalOrder(!modalOrder)}>Order</CButton>
+    } else {
+        buttonOrder = <CButton block variant="outline" color="success" onClick={() => setModalOrder(!modalOrder)} disabled>Order</CButton>
+    }
+
     return (
         <React.Fragment>
             <CRow>
@@ -138,7 +143,7 @@ const Order = () => {
                     <h3>Rp {total}</h3>
                 </CCol>
                 <CCol sm="3">
-                    <CButton block variant="outline" color="success" onClick={() => setModalOrder(!modalOrder)}>Order</CButton>
+                    {buttonOrder}
                 </CCol>
             </CRow>
             <CRow>
@@ -185,47 +190,49 @@ const Order = () => {
                 onClose={() => setModalOrder(!modalOrder)}
                 show={modalOrder}
             >
-                <CModalHeader>
-                    <CModalTitle>Invoice Order</CModalTitle>
-                </CModalHeader>
-                <CModalBody>
-                    <CFormGroup row>
-                        <CCol md="3">
-                            <CLabel>Nama</CLabel>
-                        </CCol>
-                        <CCol md="9">
-                            <CInput type="text" id="nama-pelanggan" name="nama-pelanggan" placeholder="Masukkan nama pelanggan" />
-                        </CCol>
-                    </CFormGroup>
-                    <CFormGroup row>
-                        <CCol md="3">
-                            <CLabel>Email</CLabel>
-                        </CCol>
-                        <CCol md="9">
-                            <CInput type="email" id="email-pelanggan" name="email-pelanggan" placeholder="Masukkan email pelanggan" />
-                        </CCol>
-                    </CFormGroup>
-                    <CFormGroup row>
-                        <CCol md="3">
-                            <CLabel>Biaya Transaksi</CLabel>
-                        </CCol>
-                        <CCol md="9">
-                            <CInput type="text" id="total" name="total" disabled placeholder={total} />
-                        </CCol>
-                    </CFormGroup>
-                    <CFormGroup row>
-                        <CCol md="3">
-                            <CLabel>Bayar</CLabel>
-                        </CCol>
-                        <CCol md="9">
-                            <CInput type="number" id="pembayaran" name="pembayaran" placeholder="masukkan jumlah pembayaran" />
-                        </CCol>
-                    </CFormGroup>
-                </CModalBody>
-                <CModalFooter>
-                    <CButton color="secondary" onClick={() => setModalOrder(!modalOrder)}>Ganti</CButton>{' '}
-                    <CButton color="success" onClick={() => setModalOrder(!modalOrder)}>Proses</CButton>
-                </CModalFooter>
+                <CForm>
+                    <CModalHeader>
+                        <CModalTitle>Invoice Order</CModalTitle>
+                    </CModalHeader>
+                    <CModalBody>
+                        <CFormGroup row>
+                            <CCol md="3">
+                                <CLabel>Nama</CLabel>
+                            </CCol>
+                            <CCol md="9">
+                                <CInput type="text" id="nama-pelanggan" name="nama-pelanggan" placeholder="Masukkan nama pelanggan" />
+                            </CCol>
+                        </CFormGroup>
+                        <CFormGroup row>
+                            <CCol md="3">
+                                <CLabel>Email</CLabel>
+                            </CCol>
+                            <CCol md="9">
+                                <CInput type="email" id="email-pelanggan" name="email-pelanggan" placeholder="Masukkan email pelanggan" />
+                            </CCol>
+                        </CFormGroup>
+                        <CFormGroup row>
+                            <CCol md="3">
+                                <CLabel>Biaya Transaksi</CLabel>
+                            </CCol>
+                            <CCol md="9">
+                                <CInput type="text" id="total" name="total" disabled placeholder={total} />
+                            </CCol>
+                        </CFormGroup>
+                        <CFormGroup row>
+                            <CCol md="3">
+                                <CLabel>Bayar</CLabel>
+                            </CCol>
+                            <CCol md="9">
+                                <CInput type="number" id="pembayaran" name="pembayaran" placeholder="masukkan jumlah pembayaran" />
+                            </CCol>
+                        </CFormGroup>
+                    </CModalBody>
+                    <CModalFooter>
+                        <CButton color="secondary" onClick={() => setModalOrder(!modalOrder)}>Ganti</CButton>{' '}
+                        <CButton color="success" onClick={() => setModalOrder(!modalOrder)}>Proses</CButton>
+                    </CModalFooter>
+                </CForm>
             </CModal>
         </React.Fragment>
     )

@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import {
@@ -10,22 +11,27 @@ import {
     CHeaderNavLink,
     CSubheader,
     CBreadcrumbRouter,
-    CLink
+    CLink,
+    CButton
   } from '@coreui/react'
+
+  import { AuthContext } from '../../../components/context/auth-context'
 
 const Header = () => {
     const dispatch = useDispatch()
-        const sidebarShow = useSelector(state => state.sidebarShow)
+    const sidebarShow = useSelector(state => state.sidebarShow)
 
-        const toggleSidebar = () => {
-            const val = [true, 'responsive'].includes(sidebarShow) ? false : 'responsive'
-            dispatch({type: 'set', sidebarShow: val})
-        }
+    const toggleSidebar = () => {
+        const val = [true, 'responsive'].includes(sidebarShow) ? false : 'responsive'
+        dispatch({type: 'set', sidebarShow: val})
+    }
 
-        const toggleSidebarMobile = () => {
-            const val = [false, 'responsive'].includes(sidebarShow) ? true : 'responsive'
-            dispatch({type: 'set', sidebarShow: val})
-        }
+    const toggleSidebarMobile = () => {
+        const val = [false, 'responsive'].includes(sidebarShow) ? true : 'responsive'
+        dispatch({type: 'set', sidebarShow: val})
+    }
+
+    const auth = useContext(AuthContext)
 
     return (
         <CHeader>
@@ -33,12 +39,29 @@ const Header = () => {
             inHeader
             className="ml-md-3 d-lg-none"
             onClick={toggleSidebarMobile}
-        />
-        <CToggler
-            inHeader
-            className="ml-3 d-md-down-none"
-            onClick={toggleSidebar}
-        />
+            />
+            <CToggler
+                inHeader
+                className="ml-3 d-md-down-none"
+                onClick={toggleSidebar}
+            />
+
+            {auth.isLoggedIn && (
+            <CHeaderNav className="px-3">
+                <Link to="/laundry/order">
+                    <CButton color="primary" className="px-0" active tabIndex={-1} onClick={auth.logout}>Normal</CButton>
+                </Link>
+            </CHeaderNav>
+            )}
+
+            {!auth.isLoggedIn && (
+            <CHeaderNav className="px-3">
+                <Link to="/loginSpv">
+                    <CButton color="primary" className="px-0" active tabIndex={-1}>SPV</CButton>
+                </Link>
+            </CHeaderNav>
+            )}
+
         </CHeader>
     )
 }

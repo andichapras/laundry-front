@@ -20,7 +20,7 @@ import {
 const KelolaTransaksi = () => {
     const [dataTransaksi, setDataTransaksi] = useState([
         {id: 0, tgl: '01/01/2012', nama: 'andicha', nota: '1231', harga: 12000, aksi: false},
-        {id: 1, tgl: '02/01/2012', nama: 'pras', nota: '1231', harga: 12000, aksi: false}
+        {id: 1, tgl: '02/02/2012', nama: 'pras', nota: '1231', harga: 12000, aksi: false}
     ])
     
     const switchButtonHandler = (id) => {
