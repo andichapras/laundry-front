@@ -1,1 +1,1 @@
-# laundry-js
+# laundry-front
