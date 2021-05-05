@@ -95,12 +95,12 @@ function App() {
                       <Route path="/laundry/kelolaPaket" exact>
                         <KelolaPaket />
                       </Route>
-                      <Route path="/laundry/pemasukan" exact>
+                      {/* <Route path="/laundry/pemasukan" exact>
                         <RekapMasuk />
                       </Route>
                       <Route path="/laundry/pengeluaran" exact>
                         <RekapKeluar />
-                      </Route>
+                      </Route> */}
                       <Route path="/laundry/laporan" exact>
                         <Laporan />
                       </Route>

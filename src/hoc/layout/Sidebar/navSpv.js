@@ -41,23 +41,23 @@ export default [
         _tag: 'CSidebarNavTitle',
         _children: ['Keuangan'],
     },
-    {
-        _tag: 'CSidebarNavDropdown',
-        name: 'Rekap Transaksi',
-        icon: 'cil-square',
-        _children: [
-            {
-                _tag: 'CSidebarNavItem',
-                name: 'Pemasukan',
-                to: '/laundry/pemasukan',
-            },
-            {
-                _tag: 'CSidebarNavItem',
-                name: 'Pengeluaran',
-                to: '/laundry/pengeluaran',
-            },
-        ],
-    },
+    // {
+    //     _tag: 'CSidebarNavDropdown',
+    //     name: 'Rekap Transaksi',
+    //     icon: 'cil-square',
+    //     _children: [
+    //         {
+    //             _tag: 'CSidebarNavItem',
+    //             name: 'Pemasukan',
+    //             to: '/laundry/pemasukan',
+    //         },
+    //         {
+    //             _tag: 'CSidebarNavItem',
+    //             name: 'Pengeluaran',
+    //             to: '/laundry/pengeluaran',
+    //         },
+    //     ],
+    // },
     {
         _tag: 'CSidebarNavItem',
         name: 'Laporan Keuangan',

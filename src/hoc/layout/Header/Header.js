@@ -62,6 +62,10 @@ const Header = () => {
             </CHeaderNav>
             )}
 
+            <CHeaderBrand className="mx-auto d-lg-none">
+                <h1>Ameera Laundry</h1>
+            </CHeaderBrand>
+
         </CHeader>
     )
 }
