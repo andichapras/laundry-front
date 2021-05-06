@@ -39,7 +39,7 @@ const KelolaTransaksi = () => {
     useEffect(() => {
         const fetchTransaksi = async () => {
             try {
-                const responseData = await sendRequest('http://localhost:5000/transaksi/status/kelola')
+                const responseData = await sendRequest('http://ameera-laundry.herokuapp.com/transaksi/status/kelola')
                 console.log(responseData)
                 setLoadedTransaksi(responseData.transaksiByStatus)
             } catch (err) {}
@@ -69,7 +69,7 @@ const KelolaTransaksi = () => {
         const transId = loadedTransaksi[idx].id
         try{
             await sendRequest(
-                `http://localhost:5000/transaksi/${transId}`,
+                `http://ameera-laundry.herokuapp.com/transaksi/${transId}`,
                 'PATCH',
                 JSON.stringify({}),
                 {

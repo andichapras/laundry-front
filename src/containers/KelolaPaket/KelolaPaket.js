@@ -73,7 +73,7 @@ const KelolaPaket = () => {
         const paketId = loadedPaket[idx].id
         try {
             await sendRequest(
-                `http://localhost:5000/paket/${paketId}`, 
+                `http://ameera-laundry.herokuapp.com/paket/${paketId}`, 
                 'PATCH', 
                 JSON.stringify({
                     harga: hargaModal

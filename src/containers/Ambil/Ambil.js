@@ -110,7 +110,7 @@ const Ambil = () => {
     const getTransaksiByEmail = async (event, idx) => {
         event.preventDefault()
         try{
-            const responseData = await sendRequest(`http://localhost:5000/transaksi/customer/email/${formEmail}`)
+            const responseData = await sendRequest(`http://ameera-laundry.herokuapp.com/transaksi/customer/email/${formEmail}`)
             setLoadedTransaksiByEmail(responseData.transaksiByEmail)
         } catch (err) {}
         emailShowHandler()
@@ -119,7 +119,7 @@ const Ambil = () => {
     const getTransaksiByNota = async (event, idx) => {
         event.preventDefault()
         try{
-            const responseData = await sendRequest(`http://localhost:5000/transaksi/${formNota}`)
+            const responseData = await sendRequest(`http://ameera-laundry.herokuapp.com/transaksi/${formNota}`)
             console.log(responseData)
             setLoadedTransaksiByNota(responseData.transaksi)
         } catch (err) {}
@@ -129,7 +129,7 @@ const Ambil = () => {
     const getTransaksiByNama = async (event, idx) => {
         event.preventDefault()
         try{
-            const responseData = await sendRequest(`http://localhost:5000/transaksi/customer/nama/${formNama}`)
+            const responseData = await sendRequest(`http://ameera-laundry.herokuapp.com/transaksi/customer/nama/${formNama}`)
             console.log(responseData)
             setLoadedTransaksiByNama(responseData.transaksiByCustomer)
         } catch (err) {}
@@ -139,7 +139,7 @@ const Ambil = () => {
     const getTransaksiByTelepon = async (event, idx) => {
         event.preventDefault()
         try{
-            const responseData = await sendRequest(`http://localhost:5000/transaksi/customer/telepon/${formTelepon}`)
+            const responseData = await sendRequest(`http://ameera-laundry.herokuapp.com/transaksi/customer/telepon/${formTelepon}`)
             console.log(responseData)
             setLoadedTransaksiByTelepon(responseData.transaksiByTelepon)
         } catch (err) {}
