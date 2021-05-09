@@ -12,6 +12,8 @@ import Header from './hoc/layout/Header/Header'
 import Order from './containers/Order/Order'
 import KelolaPaket from './containers/KelolaPaket/KelolaPaket'
 import Ambil from './containers/Ambil/Ambil'
+import Cari from './containers/Cari/Cari'
+import Tumpukan from './containers/Tumpukan/Tumpukan'
 import KelolaTransaksi from './containers/KelolaTransaksi/KelolaTransaksi'
 import RekapMasuk from './containers/RekapMasuk/RekapMasuk'
 import RekapKeluar from './containers/RekapKeluar/RekapKeluar'
@@ -88,6 +90,12 @@ function App() {
                       </Route>
                       <Route path="/laundry/ambil" exact>
                         <Ambil />
+                      </Route>
+                      <Route path="/laundry/cari" exact>
+                        <Cari />
+                      </Route>
+                      <Route path="/laundry/tumpukan" exact>
+                        <Tumpukan />
                       </Route>
                       <Route path="/laundry/kelolaTransaksi" exact>
                         <KelolaTransaksi />

@@ -1,11 +1,5 @@
 export default [
     {
-        _tag: 'CSidebarNavItem',
-        name: 'Home',
-        to: '/laundry/home',
-        icon: 'cil-home',
-    },
-    {
         _tag: 'CSidebarNavTitle',
         _children: ['Transaksi'],
     },
@@ -20,6 +14,22 @@ export default [
         name: 'Ambil Barang',
         to: '/laundry/ambil',
         icon: 'cil-check'
+    },
+    {
+        _tag: 'CSidebarNavTitle',
+        _children: ['Rekap Transaksi'],
+    },
+    {
+        _tag: 'CSidebarNavItem',
+        name: 'Cari',
+        to: '/laundry/cari',
+        icon: 'cil-credit-card'
+    },
+    {
+        _tag: 'CSidebarNavItem',
+        name: 'Belum Diambil',
+        to: '/laundry/tumpukan',
+        icon: 'cil-file'
     },
     {
         _tag: 'CSidebarNavTitle',

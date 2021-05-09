@@ -27,9 +27,7 @@ import {
     CCardFooter
 } from '@coreui/react'
 
-const Ambil = () => {
-    const history = useHistory()
-
+const Cari = () => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient()
     const [loadedTransaksiByEmail, setLoadedTransaksiByEmail] = useState()
     const [loadedTransaksiByNota, setLoadedTransaksiByNota] = useState()
@@ -47,18 +45,7 @@ const Ambil = () => {
     const [formNama, setFormNama] = useState('')
     const [formTelepon, setFormTelepon] = useState('')
 
-    const kolomAmbil = ['tanggal', 'nama', 'email', 'kurangBayar', 'status', 'ambil']
-
-    // useEffect(() => {
-    //     const fetchTransaksi = async () => {
-    //         try {
-    //             const responseData = await sendRequest('http://localhost:5000/transaksi')
-    //             console.log(responseData)
-    //             setLoadedTransaksi(responseData.transaksi)
-    //         } catch (err) {}
-    //     }
-    //     fetchTransaksi()
-    // }, [sendRequest])
+    const kolomCari = ['tgl transaksi', 'nama', 'email', 'notelp', 'ambil', 'tgl ambil']
 
     const changeFormEmailHandler = e => {
         let input = formEmail
@@ -82,7 +69,7 @@ const Ambil = () => {
         input = e.target.value
         setFormTelepon(input)
     }
-    
+
     const emailShowHandler = () => {
         const oldState = showCariEmail
         setShowCariEmail(!oldState)
@@ -113,7 +100,7 @@ const Ambil = () => {
     const getTransaksiByEmail = async (event, idx) => {
         event.preventDefault()
         try{
-            const responseData = await sendRequest(`http://localhost:5000/transaksi/ambil/email/${formEmail}`)
+            const responseData = await sendRequest(`http://localhost:5000/transaksi/cari/email/${formEmail}`)
             setLoadedTransaksiByEmail(responseData.transaksiByEmail)
         } catch (err) {}
         emailShowHandler()
@@ -122,7 +109,7 @@ const Ambil = () => {
     const getTransaksiByNota = async (event, idx) => {
         event.preventDefault()
         try{
-            const responseData = await sendRequest(`http://localhost:5000/transaksi/ambil/nota/${formNota}`)
+            const responseData = await sendRequest(`http://localhost:5000/transaksi/${formNota}`)
             console.log(responseData)
             setLoadedTransaksiByNota(responseData.transaksi)
         } catch (err) {}
@@ -132,7 +119,7 @@ const Ambil = () => {
     const getTransaksiByNama = async (event, idx) => {
         event.preventDefault()
         try{
-            const responseData = await sendRequest(`http://localhost:5000/transaksi/ambil/nama/${formNama}`)
+            const responseData = await sendRequest(`http://localhost:5000/transaksi/cari/nama/${formNama}`)
             console.log(responseData)
             setLoadedTransaksiByNama(responseData.transaksiByCustomer)
         } catch (err) {}
@@ -142,7 +129,7 @@ const Ambil = () => {
     const getTransaksiByTelepon = async (event, idx) => {
         event.preventDefault()
         try{
-            const responseData = await sendRequest(`http://localhost:5000/transaksi/ambil/telepon/${formTelepon}`)
+            const responseData = await sendRequest(`http://localhost:5000/transaksi/cari/telepon/${formTelepon}`)
             console.log(responseData)
             setLoadedTransaksiByTelepon(responseData.transaksiByTelepon)
         } catch (err) {}
@@ -160,7 +147,7 @@ const Ambil = () => {
             return formTelepon
         }
     }
-    
+
     const pilihData = () => {
         if (showCariEmail === true) {
             return loadedTransaksiByEmail
@@ -171,34 +158,6 @@ const Ambil = () => {
         } else if (showCariTelepon === true) {
             return loadedTransaksiByTelepon
         }
-    }
-
-    const pengambilanHandler = async (event, idx) => {
-        event.preventDefault()
-        let transaksi
-        if (showCariEmail === true) {
-            transaksi = loadedTransaksiByEmail
-        } else if (showCariNota === true) {
-            transaksi = loadedTransaksiByNota
-        } else if (showCariNama === true) {
-            transaksi = loadedTransaksiByNama
-        } else if (showCariTelepon === true) {
-            transaksi = loadedTransaksiByTelepon
-        }
-        const transaksiId = transaksi[idx].id
-        try {
-            await sendRequest(
-                `http://localhost:5000/transaksi/ambil/${transaksiId}`, 
-                'PATCH', 
-                JSON.stringify({
-                    
-                }), 
-                {
-                    'Content-Type': 'application/json'
-                }
-            )
-            history.push('/laundry/order')
-        } catch (err) { }
     }
 
     return (
@@ -217,25 +176,9 @@ const Ambil = () => {
             </CModal>
 
             <CContainer fluid>
-                <h2>Ambil Barang</h2>
+                <h2>Cari Transaksi</h2>
                 <CRow>
-                    <CCol md>
-                        <CCard>
-                            <CCardHeader>
-                                <h3>Email</h3>
-                            </CCardHeader>
-                            <CCardBody>
-                                <CForm onSubmit={getTransaksiByEmail}>
-                                    <CFormGroup>
-                                        <CLabel htmlFor="email">Masukkan Email</CLabel>
-                                        <CInput type="email" id="email" onChange={changeFormEmailHandler} />
-                                    </CFormGroup>
-                                    <CButton type="submit" block color="info">Cari</CButton>
-                                </CForm>
-                            </CCardBody>
-                        </CCard>
-                    </CCol>
-                    <CCol md>
+                    <CCol>
                         <CCard>
                             <CCardHeader>
                                 <h3>ID Nota</h3>
@@ -251,7 +194,23 @@ const Ambil = () => {
                             </CCardBody>
                         </CCard>
                     </CCol>
-                    <CCol md>
+                    <CCol>
+                        <CCard>
+                            <CCardHeader>
+                                <h3>Email</h3>
+                            </CCardHeader>
+                            <CCardBody>
+                                <CForm onSubmit={getTransaksiByEmail}>
+                                    <CFormGroup>
+                                        <CLabel htmlFor="nama">Masukkan Email</CLabel>
+                                        <CInput type="email" id="email" name="email" onChange={changeFormEmailHandler} />
+                                    </CFormGroup>
+                                    <CButton type="submit" block color="info">Cari</CButton>
+                                </CForm>
+                            </CCardBody>
+                        </CCard>
+                    </CCol>
+                    <CCol>
                         <CCard>
                             <CCardHeader>
                                 <h3>Nama</h3>
@@ -267,7 +226,7 @@ const Ambil = () => {
                             </CCardBody>
                         </CCard>
                     </CCol>
-                    <CCol md>
+                    <CCol>
                         <CCard>
                             <CCardHeader>
                                 <h3>No Telepon</h3>
@@ -284,7 +243,7 @@ const Ambil = () => {
                         </CCard>
                     </CCol>
                 </CRow>
-                
+
                 {isLoading && (
                     <CRow>
                         <CCol>
@@ -297,102 +256,65 @@ const Ambil = () => {
                     </CRow>
                 )}
 
-                {!isLoading && (showCariEmail || showCariNota || showCariNama || showCariTelepon) && 
+                {!isLoading && (showCariEmail || showCariNota || showCariNama || showCariTelepon) &&
                     (
                         <CRow>
                             <CCol>
                                 <CCard>
-                                    {/* <CForm onSubmit={(e) => pengambilanHandler(e, idx)}> */}
-                                        <CCardHeader>
-                                            <CRow>
-                                                <CCol md={4}>
-                                                    <h3>{pilihHeader()}</h3>
-                                                </CCol>
-                                                <CCol md={{ span: 2, offset: 6 }}>
-                                                    <CButton color="danger" onClick={tutupHandler}>tutup</CButton>
-                                                </CCol>
-                                            </CRow>
-                                        </CCardHeader>
-                                        <CCardBody>
-                                            <CDataTable 
-                                                items={pilihData()}
-                                                fields={kolomAmbil}
-                                                itemsPerPage={6}
-                                                pagination
-                                                hover
-                                                scopedSlots = {{
-                                                    'tanggal':
-                                                    (item, idx) => (
-                                                        <td>
-                                                            <Moment format="DD/MM/YYYY">
-                                                                {item.tanggal}
-                                                            </Moment>
-                                                        </td>
-                                                    ),
-                                                    'kurangBayar':
-                                                    (item, idx) => (
-                                                        <td>{item.totalBayar - item.uangMuka}</td>
-                                                    ),
-                                                    'status':
-                                                    (item, idx) => (
-                                                        <td>{item.status ? 'Selesai' : 'Belum'}</td>
-                                                    ),
-                                                    'ambil':
-                                                    (item, idx) => (
-                                                        <td>
-                                                            <CForm onSubmit={(e) => pengambilanHandler(e, idx)}>
-                                                                <CButton type="submit" block variant="outline" color="primary">Proses</CButton>
-                                                            </CForm>
-                                                        </td>
-                                                    )
-                                                }}
-                                            />
-                                        </CCardBody>
-                                    {/* </CForm> */}
+                                    <CCardHeader>
+                                        <CRow>
+                                            <CCol md={4}>
+                                                <h3>{pilihHeader()}</h3>
+                                            </CCol>
+                                            <CCol md={{ span: 2, offset: 6 }}>
+                                                <CButton color="danger" onClick={tutupHandler}>tutup</CButton>
+                                            </CCol>
+                                        </CRow>
+                                    </CCardHeader>
+                                    <CCardBody>
+                                        <CDataTable 
+                                            items={pilihData()}
+                                            fields={kolomCari}
+                                            itemsPerPage={6}
+                                            pagination
+                                            hover
+                                            scopedSlots = {{
+                                                'tgl transaksi':
+                                                (item, idx) => (
+                                                    <td>
+                                                        <Moment format="DD/MM/YYYY">
+                                                            {item.tanggal}
+                                                        </Moment>
+                                                    </td>
+                                                ),
+                                                'notelp':
+                                                (item, idx) => (
+                                                    <td>{item.telepon}</td>
+                                                ),
+                                                'ambil':
+                                                (item, idx) => (
+                                                    <td>{item.ambil ? 'Selesai' : 'Belum'}</td>
+                                                ),
+                                                'tgl ambil':
+                                                (item, idx) => (
+                                                    <td>
+                                                        <Moment format="DD/MM/YYYY">
+                                                            {item.tglAmbil}
+                                                        </Moment>
+                                                    </td>
+                                                )
+                                            }}
+                                        />
+                                    </CCardBody>
                                 </CCard>
                             </CCol>
                         </CRow>
                     )
-                
                 }
+
             </CContainer>
-
-            {/* <CModal
-                color="success"
-                onClose={modalAmbilHandler}
-                show={showModalAmbil}
-            >
-                <CForm>
-                    <CModalHeader>
-                        <CModalTitle>Ambil Barang</CModalTitle>
-                    </CModalHeader>
-                    <CModalBody>
-                        <CFormGroup row>
-                            <CCol md="3">
-                                <CLabel>ID Nota</CLabel>
-                            </CCol>
-                            <CCol md="9">
-                                <CInput type="text" id="idNota" name="idNota" placeholder={idNota} disabled />
-                            </CCol>
-                        </CFormGroup>
-                        <CFormGroup row>
-                            <CCol md="3">
-                                <CLabel>Kekurangan Bayar</CLabel>
-                            </CCol>
-                            <CCol md="9">
-                                <CInput type="text" id="kurang-bayar" name="kurang-bayar" placeholder="50000" disabled />
-                            </CCol>
-                        </CFormGroup>
-                    </CModalBody>
-                    <CModalFooter>
-                        <CButton color="success" onClick={pengambilanHandler}>Selesaikan</CButton>
-                    </CModalFooter>
-                </CForm>
-            </CModal> */}
         </React.Fragment>
-
-        
     )
 }
 
-export default Ambil
+export default Cari

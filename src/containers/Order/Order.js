@@ -44,7 +44,7 @@ const Order = () => {
     useEffect(() => {
         const fetchPaket = async () => {
             try {
-                const responseData = await sendRequest('http://ameera-laundry.herokuapp.com/paket')
+                const responseData = await sendRequest('http://localhost:5000/paket')
                 setLoadedPaket(responseData.paket)
             } catch (err) {}
         }
@@ -109,7 +109,7 @@ const Order = () => {
         console.log(dataOrder)
         try {
             await sendRequest(
-                'http://ameera-laundry.herokuapp.com/transaksi',
+                'http://localhost:5000/transaksi',
                 'POST',
                 JSON.stringify({
                     nama: dataOrder.nama,

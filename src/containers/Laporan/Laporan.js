@@ -65,7 +65,7 @@ const Laporan = () => {
     useEffect(() => {
         const fetchLaporan = async () => {
             try {
-                const responseData = await sendRequest('http://ameera-laundry.herokuapp.com/laporan')
+                const responseData = await sendRequest('http://localhost:5000/laporan')
                 setLoadedLaporan(responseData.laporanUtama)
             } catch (err) {}
         }
@@ -76,7 +76,7 @@ const Laporan = () => {
     //     const fetchLaporanNow = async () => {
     //         try {
     //             const responseData = await sendRequest('http://localhost:5000/laporan/now')
-    //             setLoadedLaporanNow(responseData.laporanUtama)
+    //             setLoadedLaporanNow(responseData.laporanUtamaNow)
     //         } catch (err) {}
     //     }
     //     fetchLaporanNow()
@@ -85,7 +85,7 @@ const Laporan = () => {
     useEffect(() => {
         const fetchPengeluaranBarang = async () => {
             try {
-                const responseData = await sendRequest('http://ameera-laundry.herokuapp.com/laporan/barang')
+                const responseData = await sendRequest('http://localhost:5000/laporan/barang')
                 console.log(responseData)
                 setLoadedPengeluaranBarang(responseData.pengeluaranBarang)
             } catch (err) {}
@@ -96,7 +96,7 @@ const Laporan = () => {
     useEffect(() => {
         const fetchGajiPegawai = async () => {
             try {
-                const responseData = await sendRequest('http://ameera-laundry.herokuapp.com/laporan/gaji')
+                const responseData = await sendRequest('http://localhost:5000/laporan/gaji')
                 console.log(responseData)
                 setLoadedPengeluaranGaji(responseData.gajiPegawai)
             } catch (err) {}
@@ -108,7 +108,7 @@ const Laporan = () => {
         event.preventDefault()
         try {
             await sendRequest(
-                'http://ameera-laundry.herokuapp.com/laporan/barang',
+                'http://localhost:5000/laporan/barang',
                 'POST',
                 JSON.stringify({
                     nama: inputBarang.nama,
@@ -128,7 +128,7 @@ const Laporan = () => {
         event.preventDefault()
         try {
             await sendRequest(
-                'http://ameera-laundry.herokuapp.com/laporan/gaji',
+                'http://localhost:5000/laporan/gaji',
                 'POST',
                 JSON.stringify({
                     nama: inputGaji.nama,
@@ -225,9 +225,9 @@ const Laporan = () => {
                                     <CCol>
                                         <h4>Tabel Keuangan</h4>
                                     </CCol>
-                                    <CCol>
+                                    {/* <CCol>
                                         <CInput type="date" id="tanggal" name="tanggal" placeholder="Masukkan Tanggal" />
-                                    </CCol>
+                                    </CCol> */}
                                     </CFormGroup>
                                 </CCardHeader>
                                 <CCardBody>
@@ -253,21 +253,26 @@ const Laporan = () => {
                                 </CCardBody>
                             </CCard>
                         </CCol>
+                        
+                        {/* <CWidgetIcon text="Jumlah Pelanggan" header={loadedLaporanNow.pelanggan + ' orang'} color="primary">
+                            <CIcon width={18} name="cil-user"/>
+                        </CWidgetIcon> */}
+                            {/* <CRow>
+                                <CWidgetIcon text="Keuntungan" header={'Rp ' + loadedLaporanNow.keuntungan} color="success">
+                                    <CIcon width={18} name="cil-file"/>
+                                </CWidgetIcon>
+                            </CRow> */}
                         <CCol lg="3" sm="4" xs="12">
-                            {/* <CWidgetIcon text="Keuntungan" header={'Rp ' + loadedLaporanNow.keuntungan} color="success">
-                                <CIcon width={18} name="cil-file"/>
-                            </CWidgetIcon>
-                            <CWidgetIcon text="Jumlah Pelanggan" header={loadedLaporanNow.pelanggan + ' orang'} color="primary">
-                                <CIcon width={18} name="cil-user"/>
-                            </CWidgetIcon> */}
-                            <CCard>
-                                <CCardBody>
-                                    <CButton block shape="square" color="primary" onClick={tambahGajiShowHandler}>Tambah Pegawai</CButton>
-                                    <CButton block shape="square" color="info" onClick={tambahBarangShowHandler}>Tambah Pengeluaran</CButton>
-                                    <CButton block variant="outline" color="primary" onClick={modalGajiShowHandler}>Lihat List Pegawai</CButton>
-                                    <CButton block variant="outline" color="info" onClick={modalBarangShowHandler}>Lihat List Barang</CButton>
-                                </CCardBody>
-                            </CCard>
+
+                                <CCard>
+                                    <CCardBody>
+                                        <CButton block shape="square" color="primary" onClick={tambahGajiShowHandler}>Tambah Pegawai</CButton>
+                                        <CButton block shape="square" color="info" onClick={tambahBarangShowHandler}>Tambah Pengeluaran</CButton>
+                                        <CButton block variant="outline" color="primary" onClick={modalGajiShowHandler}>Lihat List Pegawai</CButton>
+                                        <CButton block variant="outline" color="info" onClick={modalBarangShowHandler}>Lihat List Barang</CButton>
+                                    </CCardBody>
+                                </CCard>
+
                         </CCol>
                     </CRow>
                 </CContainer>
@@ -281,15 +286,15 @@ const Laporan = () => {
             >
                 <CForm onSubmit={tambahBarangHandler}>
                     <CModalHeader>
-                        <CModalTitle>Silahkan Tambahkan Barang</CModalTitle>
+                        <CModalTitle>Silahkan Tambahkan Pengeluaran</CModalTitle>
                     </CModalHeader>
                     <CModalBody>
                         <CFormGroup row>
                             <CCol md="3">
-                                <CLabel>Barang</CLabel>
+                                <CLabel>Pengeluaran</CLabel>
                             </CCol>
                             <CCol md="9">
-                                <CInput type="text" id="nama" name="nama" placeholder="masukkan nama barang" onChange={changeInputBarangHandler} required/>
+                                <CInput type="text" id="nama" name="nama" placeholder="masukkan nama barang/pengeluaran" onChange={changeInputBarangHandler} required/>
                             </CCol>
                         </CFormGroup>
                         <CFormGroup row>
@@ -297,7 +302,7 @@ const Laporan = () => {
                                 <CLabel>Jenis</CLabel>
                             </CCol>
                             <CCol md="9">
-                                <CInput type="text" id="jenis" name="jenis" placeholder="masukkan jenis barang" onChange={changeInputBarangHandler} required/>
+                                <CInput type="text" id="jenis" name="jenis" placeholder="masukkan jenis barang/pengeluaran" onChange={changeInputBarangHandler} required/>
                             </CCol>
                         </CFormGroup>
                         <CFormGroup row>
@@ -305,7 +310,7 @@ const Laporan = () => {
                                 <CLabel>Jumlah</CLabel>
                             </CCol>
                             <CCol md="9">
-                                <CInput type="number" id="jumlah" name="jumlah" placeholder="masukkan Jumlah barang" onChange={changeInputBarangHandler} required/>
+                                <CInput type="number" id="jumlah" name="jumlah" placeholder="masukkan Jumlah barang/pengeluaran" onChange={changeInputBarangHandler} required/>
                             </CCol>
                         </CFormGroup>
                         <CFormGroup row>
@@ -313,7 +318,7 @@ const Laporan = () => {
                                 <CLabel>Harga</CLabel>
                             </CCol>
                             <CCol md="9">
-                                <CInput type="number" id="harga" name="harga" placeholder="masukkan harga barang" onChange={changeInputBarangHandler} required/>
+                                <CInput type="number" id="harga" name="harga" placeholder="masukkan harga barang/pengeluaran" onChange={changeInputBarangHandler} required/>
                             </CCol>
                         </CFormGroup>
                     </CModalBody>
