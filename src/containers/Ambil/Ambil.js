@@ -309,7 +309,7 @@ const Ambil = () => {
                                                     <h3>{pilihHeader()}</h3>
                                                 </CCol>
                                                 <CCol md={{ span: 2, offset: 6 }}>
-                                                    <CButton color="danger" onClick={tutupHandler}>tutup</CButton>
+                                                    <CButton block color="danger" onClick={tutupHandler}>tutup</CButton>
                                                 </CCol>
                                             </CRow>
                                         </CCardHeader>

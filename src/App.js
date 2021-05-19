@@ -18,6 +18,7 @@ import KelolaTransaksi from './containers/KelolaTransaksi/KelolaTransaksi'
 import RekapMasuk from './containers/RekapMasuk/RekapMasuk'
 import RekapKeluar from './containers/RekapKeluar/RekapKeluar'
 import Laporan from './containers/Laporan/Laporan'
+import User from './containers/User/User'
 
 import { AuthContext } from './components/context/auth-context'
 
@@ -111,6 +112,9 @@ function App() {
                       </Route> */}
                       <Route path="/laundry/laporan" exact>
                         <Laporan />
+                      </Route>
+                      <Route path="/laundry/user" exact>
+                        <User />
                       </Route>
                       <Redirect to="/laundry/order" />
                     

@@ -237,7 +237,7 @@ const Order = () => {
                                 <CLabel>Email</CLabel>
                             </CCol>
                             <CCol md="9">
-                                <CInput type="email" id="email" name="email" placeholder="Masukkan email pelanggan" onChange={changeInputOrderHandler} required/>
+                                <CInput type="email" id="email" name="email" placeholder="Masukkan email pelanggan" onChange={changeInputOrderHandler}/>
                             </CCol>
                         </CFormGroup>
                         <CFormGroup row>

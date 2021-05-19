@@ -23,7 +23,7 @@ export default [
         _tag: 'CSidebarNavItem',
         name: 'Cari',
         to: '/laundry/cari',
-        icon: 'cil-credit-card'
+        icon: 'cil-loop-circular'
     },
     {
         _tag: 'CSidebarNavItem',
@@ -73,5 +73,15 @@ export default [
         name: 'Laporan Keuangan',
         to: '/laundry/laporan',
         icon: 'cil-file'
+    },
+    {
+        _tag: 'CSidebarNavTitle',
+        _children: ['User'],
+    },
+    {
+        _tag: 'CSidebarNavItem',
+        name: 'Ganti Password',
+        to: '/laundry/user',
+        icon: 'cil-user'
     },
 ]
