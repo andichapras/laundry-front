@@ -1,5 +1,9 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+
+import { AuthContext } from '../components/context/auth-context'
+import { useHttpClient } from '../components/hooks/http-hooks'
 import {
   CButton,
   CCard,
@@ -17,15 +21,53 @@ import {
 import CIcon from '@coreui/icons-react'
 
 const Login = () => {
+  const auth = useContext(AuthContext)
+  const history = useHistory()
+  const {isLoading, error, sendRequest, clearError} = useHttpClient()
+  const [formUsername, setFormUsername] = useState('')
+  const [formPassword, setFormPassword] = useState('')
+
+  const changeFormUsernameHandler = e => {
+    let input = formUsername
+    input = e.target.value
+    setFormUsername(input)
+  }
+  
+  const changeFormPasswordHandler = e => {
+    let input = formPassword
+    input = e.target.value
+    setFormPassword(input)
+  }
+
+  const authSubmitHandler = async event => {
+    event.preventDefault()
+
+    try {
+      await sendRequest(
+        'https://ameera-laundry.herokuapp.com/user/login',
+        'POST',
+        JSON.stringify({
+          username: formUsername,
+          password: formPassword
+        }),
+        {
+          'Content-Type': 'application/json'
+        }
+      )
+      history.push('/laundry/order')
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <div className="c-app c-default-layout flex-row align-items-center">
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md="8">
-            <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-                  <CForm>
+                  <CForm onSubmit={authSubmitHandler}>
                     <h1>Login</h1>
                     <p className="text-muted">Sign In to your account</p>
                     <CInputGroup className="mb-3">
@@ -34,7 +76,7 @@ const Login = () => {
                           <CIcon name="cil-user" />
                         </CInputGroupText>
                       </CInputGroupPrepend>
-                      <CInput type="text" placeholder="Username" autoComplete="username" />
+                      <CInput type="text" placeholder="Username" autoComplete="username" id="username" name="username" onChange={changeFormUsernameHandler} />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupPrepend>
@@ -42,13 +84,14 @@ const Login = () => {
                           <CIcon name="cil-lock-locked" />
                         </CInputGroupText>
                       </CInputGroupPrepend>
-                      <CInput type="password" placeholder="Password" autoComplete="current-password" />
+                      <CInput type="password" placeholder="Password" autoComplete="current-password" id="password" name="password" onChange={changeFormPasswordHandler} />
                     </CInputGroup>
                     <CRow>
                       <CCol xs="6">
-                        <Link to="/laundry/order">
+                          <CButton type="submit" color="primary" className="mt-3" active tabIndex={-1}>Login</CButton>
+                        {/* <Link to="/laundry/order">
                             <CButton color="primary" className="mt-3" active tabIndex={-1}>Login</CButton>
-                        </Link>
+                        </Link> */}
                       </CCol>
                       <CCol xs="6" className="text-right">
                         <CButton color="link" className="px-0">Forgot password?</CButton>
@@ -57,19 +100,6 @@ const Login = () => {
                   </CForm>
                 </CCardBody>
               </CCard>
-              {/* <CCard className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
-                <CCardBody className="text-center">
-                  <div>
-                    <h2>Sign up</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                      labore et dolore magna aliqua.</p>
-                    <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>Register Now!</CButton>
-                    </Link>
-                  </div>
-                </CCardBody>
-              </CCard> */}
-            </CCardGroup>
           </CCol>
         </CRow>
       </CContainer>

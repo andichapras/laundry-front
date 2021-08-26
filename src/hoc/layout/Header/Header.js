@@ -47,7 +47,7 @@ const Header = () => {
             />
 
             {auth.isLoggedIn && (
-            <CHeaderNav className="px-3">
+            <CHeaderNav className="col-sm-3">
                 <Link to="/laundry/order">
                     <CButton color="primary" className="px-0" active tabIndex={-1} onClick={auth.logout}>Normal</CButton>
                 </Link>
@@ -55,16 +55,24 @@ const Header = () => {
             )}
 
             {!auth.isLoggedIn && (
-            <CHeaderNav className="px-3">
+            <CHeaderNav className="col-sm-3">
                 <Link to="/loginSpv">
                     <CButton color="primary" className="px-0" active tabIndex={-1}>SPV</CButton>
                 </Link>
             </CHeaderNav>
             )}
 
-            <CHeaderBrand className="mx-auto d-lg-none">
+            <CHeaderNav className="col-sm-5">
                 <h1>Ameera Laundry</h1>
-            </CHeaderBrand>
+            </CHeaderNav>
+
+            {!auth.isLoggedIn && (
+                <CHeaderNav className="col-sm-3">
+                    <Link to="/">
+                        <CButton color="danger" className="px-0" active tabIndex={-1}>Keluar</CButton>
+                    </Link>
+                </CHeaderNav>
+            )}
 
         </CHeader>
     )

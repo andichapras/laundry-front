@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import {
   CButton,
@@ -17,15 +17,46 @@ import {
 import CIcon from '@coreui/icons-react'
 
 import { AuthContext } from '../components/context/auth-context'
+import { useHttpClient } from '../components/hooks/http-hooks'
 
 const Login = () => {
   const auth = useContext(AuthContext)
   const history = useHistory()
+  const {isLoading, error, sendRequest, clearError} = useHttpClient()
+  const [formUsername, setFormUsername] = useState('')
+  const [formPassword, setFormPassword] = useState('')
 
-  const authSpvModeHandler = (event) => {
+  const changeFormUsernameHandler = e => {
+    let input = formUsername
+    input = e.target.value
+    setFormUsername(input)
+  }
+  
+  const changeFormPasswordHandler = e => {
+    let input = formPassword
+    input = e.target.value
+    setFormPassword(input)
+  }
+
+  const authSpvModeHandler = async (event) => {
     event.preventDefault()
+    try {
+      await sendRequest(
+        'https://ameera-laundry.herokuapp.com/user/spvMode',
+        'POST',
+        JSON.stringify({
+          username: formUsername,
+          password: formPassword
+        }),
+        {
+          'Content-Type': 'application/json'
+        }
+      )
+      history.push('/laundry/order')
+    } catch (err) {
+      console.log(err)
+    }
     auth.login()
-    history.push('/laundry/order')
   }
 
   return (
@@ -45,7 +76,7 @@ const Login = () => {
                           <CIcon name="cil-user" />
                         </CInputGroupText>
                       </CInputGroupPrepend>
-                      <CInput type="text" placeholder="Username" autoComplete="username" />
+                      <CInput type="text" placeholder="Username" autoComplete="username" id="username" name="username" onChange={changeFormUsernameHandler} />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupPrepend>
@@ -53,7 +84,7 @@ const Login = () => {
                           <CIcon name="cil-lock-locked" />
                         </CInputGroupText>
                       </CInputGroupPrepend>
-                      <CInput type="password" placeholder="Password" autoComplete="current-password" />
+                      <CInput type="password" placeholder="Password" autoComplete="current-password" id="password" name="password" onChange={changeFormPasswordHandler} />
                     </CInputGroup>
                     <CRow>
                       <CCol xs="6">
