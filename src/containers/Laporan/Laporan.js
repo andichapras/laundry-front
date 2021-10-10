@@ -65,7 +65,7 @@ const Laporan = () => {
     useEffect(() => {
         const fetchLaporan = async () => {
             try {
-                const responseData = await sendRequest('http://localhost:5000/laporan')
+                const responseData = await sendRequest('https://ameera-laundry.herokuapp.com/laporan')
                 setLoadedLaporan(responseData.laporanUtama)
             } catch (err) {}
         }
@@ -85,7 +85,7 @@ const Laporan = () => {
     useEffect(() => {
         const fetchPengeluaranBarang = async () => {
             try {
-                const responseData = await sendRequest('http://localhost:5000/laporan/barang')
+                const responseData = await sendRequest('https://ameera-laundry.herokuapp.com/laporan/barang')
                 console.log(responseData)
                 setLoadedPengeluaranBarang(responseData.pengeluaranBarang)
             } catch (err) {}
@@ -96,7 +96,7 @@ const Laporan = () => {
     useEffect(() => {
         const fetchGajiPegawai = async () => {
             try {
-                const responseData = await sendRequest('http://localhost:5000/laporan/gaji')
+                const responseData = await sendRequest('https://ameera-laundry.herokuapp.com/laporan/gaji')
                 console.log(responseData)
                 setLoadedPengeluaranGaji(responseData.gajiPegawai)
             } catch (err) {}
@@ -122,7 +122,7 @@ const Laporan = () => {
         event.preventDefault()
         try {
             await sendRequest(
-                'http://localhost:5000/laporan/barang',
+                'https://ameera-laundry.herokuapp.com/laporan/barang',
                 'POST',
                 JSON.stringify({
                     nama: inputBarang.nama,
@@ -142,7 +142,7 @@ const Laporan = () => {
         event.preventDefault()
         try {
             await sendRequest(
-                'http://localhost:5000/laporan/gaji',
+                'https://ameera-laundry.herokuapp.com/laporan/gaji',
                 'POST',
                 JSON.stringify({
                     nama: inputGaji.nama,
@@ -164,7 +164,7 @@ const Laporan = () => {
         const pegawaiId = loadedPengeluaranGaji[idx]._id
         try {
             await sendRequest(
-                `http://localhost:5000/laporan/gaji/${pegawaiId}`,
+                `https://ameera-laundry.herokuapp.com/laporan/gaji/${pegawaiId}`,
                 'DELETE'
             )
         } catch (err) {

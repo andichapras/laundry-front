@@ -44,7 +44,7 @@ const Order = () => {
     useEffect(() => {
         const fetchPaket = async () => {
             try {
-                const responseData = await sendRequest('http://localhost:5000/paket')
+                const responseData = await sendRequest('https://ameera-laundry.herokuapp.com/paket')
                 setLoadedPaket(responseData.paket)
             } catch (err) {}
         }

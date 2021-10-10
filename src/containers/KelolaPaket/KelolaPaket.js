@@ -38,7 +38,7 @@ const KelolaPaket = () => {
     useEffect(() => {
         const fetchPaket = async () => {
             try {
-                const responseData = await sendRequest('http://localhost:5000/paket')
+                const responseData = await sendRequest('https://ameera-laundry.herokuapp.com/paket')
                 setLoadedPaket(responseData.paket)
                 console.log(loadedPaket)
             } catch (err) {}
@@ -72,7 +72,7 @@ const KelolaPaket = () => {
         const paketId = loadedPaket[idx].id
         try {
             await sendRequest(
-                `http://localhost:5000/paket/${paketId}`, 
+                `https://ameera-laundry.herokuapp.com/paket/${paketId}`, 
                 'PATCH', 
                 JSON.stringify({
                     harga: hargaModal

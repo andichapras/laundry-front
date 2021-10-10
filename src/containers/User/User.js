@@ -34,7 +34,7 @@ const User = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const responseData = await sendRequest('http://localhost:5000/user')
+                const responseData = await sendRequest('https://ameera-laundry.herokuapp.com/user')
                 setLoadedUser(responseData.user)
             } catch (err) {}
         }
@@ -76,7 +76,7 @@ const User = () => {
         event.preventDefault()
         try {
             await sendRequest(
-                `http://localhost:5000/user/kasir`,
+                `https://ameera-laundry.herokuapp.com/user/kasir`,
                 'PATCH',
                 JSON.stringify({
                     username: dataKasir.username,
@@ -95,7 +95,7 @@ const User = () => {
         event.preventDefault()
         try {
             await sendRequest(
-                `http://localhost:5000/user/spv`,
+                `https://ameera-laundry.herokuapp.com/user/spv`,
                 'PATCH',
                 JSON.stringify({
                     username: dataSpv.username,

@@ -49,7 +49,7 @@ const Pelanggan = () => {
     useEffect(() => {
         const fetchTransaksi = async () => {
             try {
-                const responseData = await sendRequest('http://localhost:5000/customer')
+                const responseData = await sendRequest('https://ameera-laundry.herokuapp.com/customer')
                 setLoadedPelanggan(responseData.pelanggan)
             } catch (err) {}
         }
@@ -94,7 +94,7 @@ const Pelanggan = () => {
     const getPelangganByNama = async (event) => {
         event.preventDefault()
         try {
-            const responseData = await sendRequest(`http://localhost:5000/customer/nama/${formNama}`)
+            const responseData = await sendRequest(`https://ameera-laundry.herokuapp.com/customer/nama/${formNama}`)
             setLoadedPelangganByNama(responseData.pelangganByNama)
         } catch (err) {}
         namaShowHandler()
@@ -103,7 +103,7 @@ const Pelanggan = () => {
     const getPelangganByTelepon = async (event) => {
         event.preventDefault()
         try {
-            const responseData = await sendRequest(`http://localhost:5000/customer/telepon/${formTelepon}`)
+            const responseData = await sendRequest(`https://ameera-laundry.herokuapp.com/customer/telepon/${formTelepon}`)
             setLoadedPelangganByTelepon(responseData.pelangganByTelepon)
         } catch (err) {}
         teleponShowHandler()

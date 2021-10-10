@@ -44,7 +44,7 @@ const Login = () => {
 
     try {
       await sendRequest(
-        'http://localhost:5000/user/login',
+        'https://ameera-laundry.herokuapp.com/user/login',
         'POST',
         JSON.stringify({
           username: formUsername,

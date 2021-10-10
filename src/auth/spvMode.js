@@ -42,7 +42,7 @@ const Login = () => {
     event.preventDefault()
     try {
       await sendRequest(
-        'http://localhost:5000/user/spvMode',
+        'https://ameera-laundry.herokuapp.com/user/spvMode',
         'POST',
         JSON.stringify({
           username: formUsername,
