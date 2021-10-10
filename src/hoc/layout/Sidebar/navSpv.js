@@ -32,6 +32,12 @@ export default [
         icon: 'cil-file'
     },
     {
+        _tag: 'CSidebarNavItem',
+        name: 'Pelanggan',
+        to: '/laundry/pelanggan',
+        icon: 'cil-users'
+    },
+    {
         _tag: 'CSidebarNavTitle',
         _children: ['Pengelolaan']
     },

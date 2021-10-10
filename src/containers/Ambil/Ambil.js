@@ -113,7 +113,7 @@ const Ambil = () => {
     const getTransaksiByEmail = async (event, idx) => {
         event.preventDefault()
         try{
-            const responseData = await sendRequest(`https://ameera-laundry.herokuapp.com/transaksi/ambil/email/${formEmail}`)
+            const responseData = await sendRequest(`http://localhost:5000/transaksi/ambil/email/${formEmail}`)
             setLoadedTransaksiByEmail(responseData.transaksiByEmail)
         } catch (err) {}
         emailShowHandler()
@@ -122,7 +122,7 @@ const Ambil = () => {
     const getTransaksiByNota = async (event, idx) => {
         event.preventDefault()
         try{
-            const responseData = await sendRequest(`https://ameera-laundry.herokuapp.com/transaksi/ambil/nota/${formNota}`)
+            const responseData = await sendRequest(`http://localhost:5000/transaksi/ambil/nota/${formNota}`)
             console.log(responseData)
             setLoadedTransaksiByNota(responseData.transaksi)
         } catch (err) {}
@@ -132,7 +132,7 @@ const Ambil = () => {
     const getTransaksiByNama = async (event, idx) => {
         event.preventDefault()
         try{
-            const responseData = await sendRequest(`https://ameera-laundry.herokuapp.com/transaksi/ambil/nama/${formNama}`)
+            const responseData = await sendRequest(`http://localhost:5000/transaksi/ambil/nama/${formNama}`)
             console.log(responseData)
             setLoadedTransaksiByNama(responseData.transaksiByCustomer)
         } catch (err) {}
@@ -142,7 +142,7 @@ const Ambil = () => {
     const getTransaksiByTelepon = async (event, idx) => {
         event.preventDefault()
         try{
-            const responseData = await sendRequest(`https://ameera-laundry.herokuapp.com/transaksi/ambil/telepon/${formTelepon}`)
+            const responseData = await sendRequest(`http://localhost:5000/transaksi/ambil/telepon/${formTelepon}`)
             console.log(responseData)
             setLoadedTransaksiByTelepon(responseData.transaksiByTelepon)
         } catch (err) {}
@@ -188,7 +188,7 @@ const Ambil = () => {
         const transaksiId = transaksi[idx].id
         try {
             await sendRequest(
-                `https://ameera-laundry.herokuapp.com/transaksi/ambil/${transaksiId}`, 
+                `http://localhost:5000/transaksi/ambil/${transaksiId}`, 
                 'PATCH', 
                 JSON.stringify({
                     

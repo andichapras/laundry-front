@@ -36,7 +36,7 @@ const Tumpukan = () => {
     useEffect(() => {
         const fetchTransaksi = async () => {
             try {
-                const responseData = await sendRequest('https://ameera-laundry.herokuapp.com/transaksi/status/ambil')
+                const responseData = await sendRequest('http://localhost:5000/transaksi/status/ambil')
                 setLoadedTransaksiForAmbil(responseData.transaksiForAmbil)
             } catch (err) {}
         }

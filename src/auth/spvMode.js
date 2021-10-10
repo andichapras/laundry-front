@@ -42,7 +42,7 @@ const Login = () => {
     event.preventDefault()
     try {
       await sendRequest(
-        'https://ameera-laundry.herokuapp.com/user/spvMode',
+        'http://localhost:5000/user/spvMode',
         'POST',
         JSON.stringify({
           username: formUsername,
@@ -54,7 +54,7 @@ const Login = () => {
       )
       history.push('/laundry/order')
     } catch (err) {
-      console.log(err)
+      alert(err)
     }
     auth.login()
   }
@@ -76,7 +76,7 @@ const Login = () => {
                           <CIcon name="cil-user" />
                         </CInputGroupText>
                       </CInputGroupPrepend>
-                      <CInput type="text" placeholder="Username" autoComplete="username" id="username" name="username" onChange={changeFormUsernameHandler} />
+                      <CInput type="text" placeholder="Username" autoComplete="username" id="username" name="username" onChange={changeFormUsernameHandler} required />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupPrepend>
@@ -84,7 +84,7 @@ const Login = () => {
                           <CIcon name="cil-lock-locked" />
                         </CInputGroupText>
                       </CInputGroupPrepend>
-                      <CInput type="password" placeholder="Password" autoComplete="current-password" id="password" name="password" onChange={changeFormPasswordHandler} />
+                      <CInput type="password" placeholder="Password" autoComplete="current-password" id="password" name="password" onChange={changeFormPasswordHandler} required />
                     </CInputGroup>
                     <CRow>
                       <CCol xs="6">

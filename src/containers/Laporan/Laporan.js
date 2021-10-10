@@ -57,15 +57,15 @@ const Laporan = () => {
 
     const history = useHistory()
 
-    const kolom = ['no', 'tahun', 'bulan', 'transaksi', 'pelanggan', 'pegawai', 'keuntungan']
+    const kolom = ['no', 'tahun', 'bulan', 'transaksi', 'pelanggan', 'pemasukan', 'pengeluaran', 'keuntungan']
     const namaBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
     const kolomPengeluaranBarang = ['no', 'nama', 'jenis', 'jumlah', 'harga']
-    const kolomPengeluaranGaji = ['no', 'nama', 'tugas', 'gaji']
+    const kolomPengeluaranGaji = ['no', 'nama', 'tugas', 'gaji', 'aksi']
 
     useEffect(() => {
         const fetchLaporan = async () => {
             try {
-                const responseData = await sendRequest('https://ameera-laundry.herokuapp.com/laporan')
+                const responseData = await sendRequest('http://localhost:5000/laporan')
                 setLoadedLaporan(responseData.laporanUtama)
             } catch (err) {}
         }
@@ -85,7 +85,7 @@ const Laporan = () => {
     useEffect(() => {
         const fetchPengeluaranBarang = async () => {
             try {
-                const responseData = await sendRequest('https://ameera-laundry.herokuapp.com/laporan/barang')
+                const responseData = await sendRequest('http://localhost:5000/laporan/barang')
                 console.log(responseData)
                 setLoadedPengeluaranBarang(responseData.pengeluaranBarang)
             } catch (err) {}
@@ -96,7 +96,7 @@ const Laporan = () => {
     useEffect(() => {
         const fetchGajiPegawai = async () => {
             try {
-                const responseData = await sendRequest('https://ameera-laundry.herokuapp.com/laporan/gaji')
+                const responseData = await sendRequest('http://localhost:5000/laporan/gaji')
                 console.log(responseData)
                 setLoadedPengeluaranGaji(responseData.gajiPegawai)
             } catch (err) {}
@@ -104,11 +104,25 @@ const Laporan = () => {
         fetchGajiPegawai()
     }, [sendRequest])
 
+    const showModalHapusPegawaiHandler = (pegawai) => {
+        let modalPegawai = [...loadedPengeluaranGaji]
+        modalPegawai[pegawai].modal = true
+        setLoadedPengeluaranGaji(modalPegawai)
+    }
+
+    const closeModalHapusPegawai = () => {
+        let modalPegawai = [...loadedPengeluaranGaji]
+        modalPegawai.map((gaji, idx) => {
+            gaji.modal = false
+        })
+        setLoadedPengeluaranGaji(modalPegawai)
+    }
+
     const tambahBarangHandler = async (event) => {
         event.preventDefault()
         try {
             await sendRequest(
-                'https://ameera-laundry.herokuapp.com/laporan/barang',
+                'http://localhost:5000/laporan/barang',
                 'POST',
                 JSON.stringify({
                     nama: inputBarang.nama,
@@ -128,7 +142,7 @@ const Laporan = () => {
         event.preventDefault()
         try {
             await sendRequest(
-                'https://ameera-laundry.herokuapp.com/laporan/gaji',
+                'http://localhost:5000/laporan/gaji',
                 'POST',
                 JSON.stringify({
                     nama: inputGaji.nama,
@@ -141,6 +155,21 @@ const Laporan = () => {
             )
             history.push('/laundry/order')
         } catch (err) {}
+    }
+
+    const deleteDataPegawaiHandler = async (e, idx) => {
+        e.preventDefault()
+        closeModalHapusPegawai()
+        modalGajiShowHandler()
+        const pegawaiId = loadedPengeluaranGaji[idx]._id
+        try {
+            await sendRequest(
+                `http://localhost:5000/laporan/gaji/${pegawaiId}`,
+                'DELETE'
+            )
+        } catch (err) {
+
+        }
     }
 
     const tambahBarangShowHandler = () => {
@@ -245,6 +274,12 @@ const Laporan = () => {
                                             (item, idx) => (
                                                 <td>{namaBulan[item.bulan]}</td>
                                             ),
+                                            'pemasukan': (item, idx) => (
+                                                <td>Rp {item.pemasukan}</td>
+                                            ),
+                                            'pengeluaran': (item, idx) => (
+                                                <td>Rp {item.pengeluaran}</td>
+                                            ),
                                             'keuntungan': (item, idx) => (
                                                 <td>Rp {item.keuntungan}</td>
                                             )
@@ -344,7 +379,7 @@ const Laporan = () => {
                                 <CLabel>Nama</CLabel>
                             </CCol>
                             <CCol md="9">
-                                <CInput type="text" id="nama" name="nama" placeholder="masukkan nama barang" onChange={changeInputGajiHandler} required/>
+                                <CInput type="text" id="nama" name="nama" placeholder="masukkan nama pegawai" onChange={changeInputGajiHandler} required/>
                             </CCol>
                         </CFormGroup>
                         <CFormGroup row>
@@ -352,7 +387,7 @@ const Laporan = () => {
                                 <CLabel>Tugas Kerja</CLabel>
                             </CCol>
                             <CCol md="9">
-                                <CInput type="text" id="tugas" name="tugas" placeholder="masukkan jenis barang" onChange={changeInputGajiHandler} required/>
+                                <CInput type="text" id="tugas" name="tugas" placeholder="masukkan tugas kerja" onChange={changeInputGajiHandler} required/>
                             </CCol>
                         </CFormGroup>
                         <CFormGroup row>
@@ -360,7 +395,7 @@ const Laporan = () => {
                                 <CLabel>Gaji</CLabel>
                             </CCol>
                             <CCol md="9">
-                                <CInput type="number" id="gaji" name="gaji" placeholder="masukkan Jumlah barang" onChange={changeInputGajiHandler} required/>
+                                <CInput type="number" id="gaji" name="gaji" placeholder="masukkan Jumlah gaji" onChange={changeInputGajiHandler} required/>
                             </CCol>
                         </CFormGroup>
                     </CModalBody>
@@ -411,23 +446,50 @@ const Laporan = () => {
                     <CModalTitle>Tabel List Pegawai</CModalTitle>
                 </CModalHeader>
                 <CModalBody>
-                    <CDataTable 
-                        items={loadedPengeluaranGaji}
-                        fields={kolomPengeluaranGaji}
-                        itemsPerPage={10}
-                        pagination
-                        hover
-                        scopedSlots = {{
-                            'no': (item, idx) => (
-                                <td>{idx + 1}</td>
-                            ),
-                            'gaji': (item, idx) => (
-                                <td>Rp {item.gaji}</td>
-                            )
-                        }}
-                    />
+                    <CForm>
+                        <CDataTable 
+                            items={loadedPengeluaranGaji}
+                            fields={kolomPengeluaranGaji}
+                            itemsPerPage={10}
+                            pagination
+                            hover
+                            scopedSlots = {{
+                                'no': (item, idx) => (
+                                    <td>{idx + 1}</td>
+                                ),
+                                'gaji': (item, idx) => (
+                                    <td>Rp {item.gaji}</td>
+                                ),
+                                'aksi': (item, idx) => (
+                                    <CButton block variant="outline" color="danger" onClick={() => showModalHapusPegawaiHandler(idx)}>Pecat</CButton>
+                                )
+                            }}
+                        />
+                </CForm>
                 </CModalBody>
             </CModal>
+
+            {loadedPengeluaranGaji && loadedPengeluaranGaji.map((pegawai, idx) => {
+                if(pegawai.modal === true) {
+                    return(
+                        <CModal
+                            color="danger"
+                            show={pegawai.modal}
+                            onClose={closeModalHapusPegawai}
+                        >
+                            <CModalHeader>
+                                <CModalTitle>{pegawai.nama}</CModalTitle>
+                            </CModalHeader>
+                            <CModalBody>
+                                <p>Apakah anda yakin ingin memecat pegawai ini?</p>
+                            </CModalBody>
+                            <CModalFooter>
+                                <CButton color="danger" onClick={(e) => deleteDataPegawaiHandler(e, idx)}>Iya</CButton>
+                            </CModalFooter>
+                        </CModal>
+                    )
+                }
+            }) }
             
         </React.Fragment>
     )

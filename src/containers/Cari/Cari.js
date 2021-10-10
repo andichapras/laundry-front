@@ -100,7 +100,7 @@ const Cari = () => {
     const getTransaksiByEmail = async (event, idx) => {
         event.preventDefault()
         try{
-            const responseData = await sendRequest(`https://ameera-laundry.herokuapp.com/transaksi/cari/email/${formEmail}`)
+            const responseData = await sendRequest(`http://localhost:5000/transaksi/cari/email/${formEmail}`)
             setLoadedTransaksiByEmail(responseData.transaksiByEmail)
         } catch (err) {}
         emailShowHandler()
@@ -109,7 +109,7 @@ const Cari = () => {
     const getTransaksiByNota = async (event, idx) => {
         event.preventDefault()
         try{
-            const responseData = await sendRequest(`https://ameera-laundry.herokuapp.com/transaksi/${formNota}`)
+            const responseData = await sendRequest(`http://localhost:5000/transaksi/${formNota}`)
             console.log(responseData)
             setLoadedTransaksiByNota(responseData.transaksi)
         } catch (err) {}
@@ -119,7 +119,7 @@ const Cari = () => {
     const getTransaksiByNama = async (event, idx) => {
         event.preventDefault()
         try{
-            const responseData = await sendRequest(`https://ameera-laundry.herokuapp.com/transaksi/cari/nama/${formNama}`)
+            const responseData = await sendRequest(`http://localhost:5000/transaksi/cari/nama/${formNama}`)
             console.log(responseData)
             setLoadedTransaksiByNama(responseData.transaksiByCustomer)
         } catch (err) {}
@@ -129,7 +129,7 @@ const Cari = () => {
     const getTransaksiByTelepon = async (event, idx) => {
         event.preventDefault()
         try{
-            const responseData = await sendRequest(`https://ameera-laundry.herokuapp.com/transaksi/cari/telepon/${formTelepon}`)
+            const responseData = await sendRequest(`http://localhost:5000/transaksi/cari/telepon/${formTelepon}`)
             console.log(responseData)
             setLoadedTransaksiByTelepon(responseData.transaksiByTelepon)
         } catch (err) {}

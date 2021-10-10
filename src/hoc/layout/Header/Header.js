@@ -69,7 +69,7 @@ const Header = () => {
             {!auth.isLoggedIn && (
                 <CHeaderNav className="col-sm-3">
                     <Link to="/">
-                        <CButton color="danger" className="px-0" active tabIndex={-1}>Keluar</CButton>
+                        <CButton color="danger" className="px-0" active tabIndex={-1} onClick={auth.keluar}>Keluar</CButton>
                     </Link>
                 </CHeaderNav>
             )}

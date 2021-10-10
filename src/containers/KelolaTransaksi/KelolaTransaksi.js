@@ -39,7 +39,7 @@ const KelolaTransaksi = () => {
     useEffect(() => {
         const fetchTransaksi = async () => {
             try {
-                const responseData = await sendRequest('https://ameera-laundry.herokuapp.com/transaksi/status/kelola')
+                const responseData = await sendRequest('http://localhost:5000/transaksi/status/kelola')
                 console.log(responseData)
                 setLoadedTransaksi(responseData.transaksiByStatus)
             } catch (err) {}
@@ -69,7 +69,7 @@ const KelolaTransaksi = () => {
         const transId = loadedTransaksi[idx].id
         try{
             await sendRequest(
-                `https://ameera-laundry.herokuapp.com/transaksi/${transId}`,
+                `http://localhost:5000/transaksi/${transId}`,
                 'PATCH',
                 JSON.stringify({}),
                 {
@@ -105,17 +105,7 @@ const KelolaTransaksi = () => {
                 <CContainer fluid>
                     <CRow>
                         <CCol>
-                            <h3>Kelola Barang</h3>
-                        </CCol>
-                        <CCol md="4">
-                            <CFormGroup row>
-                                <CCol xs="6">
-                                    <CLabel htmlFor="date-input" style={{textAlign: 'right'}}>Masukkan Tanggal :</CLabel>
-                                </CCol>
-                                <CCol xs="6">
-                                    <CInput type="date" id="tanggal" name="tanggal" placeholder="Masukkan Tanggal" />
-                                </CCol>
-                            </CFormGroup>
+                            <h3>Kelola Transaksi</h3>
                         </CCol>
                     </CRow>
                     <CRow>
