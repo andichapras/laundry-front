@@ -41,7 +41,7 @@ const RekapMasuk = () => {
         const abortController = new AbortController()
         const fetchLaporanPemasukan = async () => {
             try {
-                const responseDataLaporan = await sendRequest('http://localhost:5000/laporan/masuk')
+                const responseDataLaporan = await sendRequest('https://ameera-laundry.herokuapp.com/laporan/masuk')
                 setLoadedLaporamPemasukan(responseDataLaporan.laporanPemasukan)
                 console.log(responseDataLaporan)
             } catch (err) {}

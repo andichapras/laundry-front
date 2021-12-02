@@ -66,7 +66,7 @@ const RekapKeluar = () => {
     useEffect(() => {
         const fetchPengeluaranBarang = async () => {
             try {
-                const responseData = await sendRequest('http://localhost:5000/laporan/keluar/barang')
+                const responseData = await sendRequest('https://ameera-laundry.herokuapp.com/laporan/keluar/barang')
                 console.log(responseData)
                 setLoadedPengeluaranBarang(responseData.pengeluaranBarang)
             } catch (err) {}
@@ -77,7 +77,7 @@ const RekapKeluar = () => {
     useEffect(() => {
         const fetchLaporanPengeluaran = async () => {
             try {
-                const responseData = await sendRequest('http://localhost:5000/laporan/keluar')
+                const responseData = await sendRequest('https://ameera-laundry.herokuapp.com/laporan/keluar')
                 console.log(responseData)
                 setLoadedLaporanPengeluaran(responseData.laporanPengeluaran)
             } catch (err) {}
@@ -130,7 +130,7 @@ const RekapKeluar = () => {
         event.preventDefault()
         try {
             await sendRequest(
-                'http://localhost:5000/laporan/keluar/barang',
+                'https://ameera-laundry.herokuapp.com/laporan/keluar/barang',
                 'POST',
                 JSON.stringify({
                     nama: inputBarang.nama,
@@ -150,7 +150,7 @@ const RekapKeluar = () => {
         event.preventDefault()
         try {
             await sendRequest(
-                'http://localhost:5000/laporan/keluar/gaji',
+                'https://ameera-laundry.herokuapp.com/laporan/keluar/gaji',
                 'POST',
                 JSON.stringify({
                     nama: inputGaji.nama,
