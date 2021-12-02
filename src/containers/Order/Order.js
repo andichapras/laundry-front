@@ -109,7 +109,7 @@ const Order = () => {
         console.log(dataOrder)
         try {
             await sendRequest(
-                'http://localhost:5000/transaksi',
+                'https://ameera-laundry.herokuapp.com/transaksi',
                 'POST',
                 JSON.stringify({
                     nama: dataOrder.nama,
